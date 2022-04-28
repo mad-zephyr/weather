@@ -8,36 +8,36 @@ export type Hour = {
   condition: Condition
   time: string
   wind_dir: string
-  time_epoch: 1651096800
-  temp_c: 6.9
-  temp_f: 44.4
-  is_day: 0
-  wind_mph: 5.4
-  wind_kph: 8.6
-  wind_degree: 40
-  pressure_mb: 1030
-  pressure_in: 30.42
-  precip_mm: 0
-  precip_in: 0
-  humidity: 78
-  cloud: 5
+  time_epoch: number
+  temp_c: number
+  temp_f: number
+  is_day: number
+  wind_mph: number
+  wind_kph: number
+  wind_degree: number
+  pressure_mb: number
+  pressure_in: number
+  precip_mm: number
+  precip_in: number
+  humidity: number
+  cloud: number
   feelslike_c: number
-  feelslike_f: 41.4
-  windchill_c: 5.2
-  windchill_f: 41.4
-  heatindex_c: 6.9
-  heatindex_f: 44.4
-  dewpoint_c: 3.3
-  dewpoint_f: 37.9
-  will_it_rain: 0
-  chance_of_rain: 0
-  will_it_snow: 0
-  chance_of_snow: 0
-  vis_km: 10
-  vis_miles: 6
-  gust_mph: 7.8
-  gust_kph: 12.6
-  uv: 1
+  feelslike_f: number
+  windchill_c: number
+  windchill_f: number
+  heatindex_c: number
+  heatindex_f: number
+  dewpoint_c: number
+  dewpoint_f: number
+  will_it_rain: number
+  chance_of_rain: number
+  will_it_snow: number
+  chance_of_snow: number
+  vis_km: number
+  vis_miles: number
+  gust_mph: number
+  gust_kph: number
+  uv: number
 }
 
 export type Astro = {
@@ -51,24 +51,24 @@ export type Astro = {
 
 export type Day = {
   condition: Condition
-  maxtemp_c: 13.2
-  maxtemp_f: 55.8
-  mintemp_c: 5.9
-  mintemp_f: 42.6
-  avgtemp_c: 9.3
-  avgtemp_f: 48.8
-  maxwind_mph: 9.4
-  maxwind_kph: 15.1
-  totalprecip_mm: 0
-  totalprecip_in: 0
-  avgvis_km: 10
-  avgvis_miles: 6
-  avghumidity: 64
-  daily_will_it_rain: 0
-  daily_chance_of_rain: 0
-  daily_will_it_snow: 0
-  daily_chance_of_snow: 0
-  uv: 5
+  maxtemp_c: number
+  maxtemp_f: number
+  mintemp_c: number
+  mintemp_f: number
+  avgtemp_c: number
+  avgtemp_f: number
+  maxwind_mph: number
+  maxwind_kph: number
+  totalprecip_mm: number
+  totalprecip_in: number
+  avgvis_km: number
+  avgvis_miles: number
+  avghumidity: number
+  daily_will_it_rain: number
+  daily_chance_of_rain: number
+  daily_will_it_snow: number
+  daily_chance_of_snow: number
+  uv: number
 }
 
 export type Location = {
@@ -122,9 +122,9 @@ export type Current = {
 }
 
 export interface CurrentWeather  {
-  location: Location
-  current: Current
-  forecast: {
-    forecastday: Array<ForecastDay>
+  location?: Location
+  current?: Current
+  forecast?: {
+    forecastday?: Array<ForecastDay>
   }
 }

@@ -23,18 +23,14 @@ export default function Weather(): JSX.Element {
 
   useEffect(() => {
     if (currentWeather) {
-      console.log('currentWeather:', currentWeather)
-      if ('location' in currentWeather) {
-        const { location } = currentWeather
-        setLocation(location)
-      }
+      
+      const { location } = currentWeather
+      setLocation(location)
 
-      if ('current' in currentWeather) {
-        const { current } = currentWeather
-        setCurrent(current)
-      }
+      const { current } = currentWeather
+      setCurrent(current)
 
-      if ('forecast' in currentWeather && 'forecastday' in currentWeather.forecast ) {
+      if (currentWeather?.forecast ) {
         const { forecastday } = currentWeather.forecast
         setForecastDay(forecastday)
       }
@@ -55,10 +51,7 @@ export default function Weather(): JSX.Element {
     ? <>
         <div className={style.main}>
           <div className={style.container}>
-            <CurrentSection
-              location = {location}
-              current = {current}
-              forecast = {forecastDay}
+            <CurrentSection {...currentWeather}
             />
             <Navigation
               setShowTab={setShowTab}

@@ -5,7 +5,7 @@ import style from './DayWeather.module.sass'
 import { Time } from '../Time/Time'
 
 export const DayWeather: React.FC<DayWeatherProps> = ({ currentDay }): JSX.Element => {
-  console.log('DAY: ', currentDay)
+
   const { day, astro, hour } = currentDay
 
   function getMin(array): number {

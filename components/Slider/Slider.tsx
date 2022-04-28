@@ -22,23 +22,30 @@ export const Slider: React.FC<SliderProps> = (props: SliderProps): JSX.Element =
 
   return (
     <div className={style.section}>
-      <div className={style.shopFront__navigation} ref={navigationPrevRef} >
+      {/* <div className={style.shopFront__navigation} ref={navigationPrevRef} >
         <LeftArrow  />
-      </div>
+      </div> */}
       <Swiper
         className={className}
         modules={[Navigation]}
+        navigation={{
+          prevEl:  style.shopFront__navigation,
+          nextEl: style.shopFront__navigation
+        }}
 
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         grabCursor={true}
-        onSlideChange={(): void => console.log() }
+        onSlideChange={(): void => console.log()}
+
         onSwiper={(swiper) => {
           setTimeout(() => {
             try {
             // Override prevEl & nextEl now that refs are defined
-            swiper.params.navigation.prevEl = navigationPrevRef.current
-            swiper.params.navigation.nextEl = navigationNextRef.current
+            if (swiper?.params?.navigation?.prevEl && swiper?.params?.navigation?.nextEl) {
+              swiper.params.navigation.prevEl = navigationPrevRef.current
+              swiper.params.navigation.nextEl = navigationNextRef.current
+            }
 
             // Re-init navigation
             swiper.navigation.destroy()
@@ -53,9 +60,9 @@ export const Slider: React.FC<SliderProps> = (props: SliderProps): JSX.Element =
         </SwiperSlide>
       ))}
       </Swiper>
-      <div className={style.shopFront__navigation} ref={navigationNextRef}>
+      {/* <div className={style.shopFront__navigation} ref={navigationNextRef}>
         <RightArrow />
-      </div>
+      </div> */}
     </div>
   )
 }

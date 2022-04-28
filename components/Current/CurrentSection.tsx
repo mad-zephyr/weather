@@ -2,7 +2,6 @@ import React from 'react'
 
 import style from './Current.module.sass'
 import { CurrentWeather } from '../../interfaces/interfaces'
-import { Temporal } from '@js-temporal/polyfill'
 import { Time } from '../Time/Time'
 
 export const CurrentSection = (props: CurrentWeather): JSX.Element => {
@@ -18,7 +17,7 @@ export const CurrentSection = (props: CurrentWeather): JSX.Element => {
     <div className={style.wrapper}>
       <div className={style.left}>
         <div className={style.city}>
-          {location.name}
+          {location?.name}
         </div>
         <div className={style.date}>
           <Time date={last_updated} />
@@ -32,7 +31,7 @@ export const CurrentSection = (props: CurrentWeather): JSX.Element => {
       </div>
       <div className={style.temp}>
         <div className={style.temp__now}>
-          {current.temp_c}
+          {current?.temp_c}
         </div>
         <div className={style.temp__minmax}>
           <span>{today.day?.mintemp_c.toFixed(0)}</span> / <span>{today.day?.maxtemp_c.toFixed(0)}</span> 
