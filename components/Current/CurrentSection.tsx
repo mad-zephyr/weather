@@ -2,14 +2,17 @@ import React from 'react'
 
 import style from './Current.module.sass'
 import { CurrentWeather } from '../../interfaces/interfaces'
+import { Temporal } from '@js-temporal/polyfill'
+import { Time } from '../Time/Time'
 
 export const CurrentSection = (props: CurrentWeather): JSX.Element => {
   const { location, current, forecast } = props
+  console.log(props)
   const { condition } = current
   const { forecastday } = forecast
   const [today] = forecastday
   
-  console.log(props)
+  const { last_updated } = current
   
   return (
     <div className={style.wrapper}>
@@ -18,7 +21,7 @@ export const CurrentSection = (props: CurrentWeather): JSX.Element => {
           {location.name}
         </div>
         <div className={style.date}>
-          {current.last_updated}
+          <Time date={last_updated} />
         </div>
         <div className={style.weather}>
           <img src={`https:${condition.icon}`} />

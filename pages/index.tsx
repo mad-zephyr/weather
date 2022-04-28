@@ -23,7 +23,7 @@ export default function Weather(): JSX.Element {
 
   useEffect(() => {
     if (currentWeather) {
-
+      console.log('currentWeather:', currentWeather)
       if ('location' in currentWeather) {
         const { location } = currentWeather
         setLocation(location)
@@ -47,22 +47,38 @@ export default function Weather(): JSX.Element {
   }, [])
 
   const currentTime = Date.now() / 1000
-  console.log(currentTime)
 
-  const timeNow = Temporal.Now.plainDateTimeISO()
-  // console.log('currentWeather: ', currentWeather)
+  console.log('currentWeather: ', currentWeather)
   // console.log('forecastDay: ', forecastDay)
-  console.log('showTab: ', showTab)
 
-  return (
-    <div className={style.main}>
-      <div className={style.container}>
-        {currentWeather && <CurrentSection {...currentWeather} />}
-        <Navigation setShowTab={setShowTab} showTab={showTab}/>
-        <HourlySlider currentTime={currentTime} showTab={showTab} hour={forecastDay?.[day].hour}/>
-        <DaysSlider showTab={showTab} days={forecastDay} className={style.hourSLider} />
-      </div>
-      <div className={style.bg} style={{ background: `url(${bg.src}) center center/cover no-repeat` }}/>
-    </div>
-  )
+  return  currentWeather
+    ? <>
+        <div className={style.main}>
+          <div className={style.container}>
+            <CurrentSection
+              location = {location}
+              current = {current}
+              forecast = {forecastDay}
+            />
+            <Navigation
+              setShowTab={setShowTab}
+              showTab={showTab}
+            />
+            <HourlySlider
+              currentTime={currentTime}
+              showTab={showTab}
+              hour={forecastDay?.[day].hour}
+            />
+            <DaysSlider
+              showTab={showTab}
+              days={forecastDay}
+              className={style.hourSLider}
+            />
+          </div>
+          <div className={style.bg} style={{ background: `url(${bg.src}) center center/cover no-repeat` }}/>
+        </div> 
+    </>
+    : <>Loading... </>
+
+  
 }

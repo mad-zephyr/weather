@@ -2,6 +2,7 @@ import React from 'react'
 import { DayWeatherProps } from './DayWeather.props'
 
 import style from './DayWeather.module.sass'
+import { Time } from '../Time/Time'
 
 export const DayWeather: React.FC<DayWeatherProps> = ({ currentDay }): JSX.Element => {
   console.log('DAY: ', currentDay)
@@ -21,7 +22,7 @@ export const DayWeather: React.FC<DayWeatherProps> = ({ currentDay }): JSX.Eleme
 
   return (
     <div className={style.content}>
-      <div className={style.date}>{currentDay.date}</div>
+      <div className={style.date}>{<Time date={currentDay.date} />}</div>
       <div className={style.day}>
         <img src={`https:${day.condition.icon}`} alt={day.condition.text} />
         <div className={style.day__temp}>{ day.maxtemp_c}</div>
