@@ -46,6 +46,9 @@ export default function Weather(): JSX.Element {
     getCurrentWeather({q: 'Chisinau', days: 7})
   }, [])
 
+  const currentTime = Date.now() / 1000
+  console.log(currentTime)
+
   const timeNow = Temporal.Now.plainDateTimeISO()
   // console.log('currentWeather: ', currentWeather)
   // console.log('forecastDay: ', forecastDay)
@@ -56,7 +59,7 @@ export default function Weather(): JSX.Element {
       <div className={style.container}>
         {currentWeather && <CurrentSection {...currentWeather} />}
         <Navigation setShowTab={setShowTab} showTab={showTab}/>
-        <HourlySlider showTab={showTab} hour={forecastDay?.[day].hour}/>
+        <HourlySlider currentTime={currentTime} showTab={showTab} hour={forecastDay?.[day].hour}/>
         <DaysSlider showTab={showTab} days={forecastDay} className={style.hourSLider} />
       </div>
       <div className={style.bg} style={{ background: `url(${bg.src}) center center/cover no-repeat` }}/>

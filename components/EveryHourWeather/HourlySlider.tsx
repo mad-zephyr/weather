@@ -3,9 +3,8 @@ import { HourlySliderProps } from './HourlySliderProps.props';
 import { Slider } from '../Slider/Slider';
 import { HourSlide } from '../HourSlide/HourSlide'
 
-export const HourlySlider = ({ hour, showTab }: HourlySliderProps): JSX.Element => {
-
-  // console.log(hour)
+export const HourlySlider = ({ hour, showTab, currentTime }: HourlySliderProps): JSX.Element => {
+  hour = hour?.filter(item => item.time_epoch >= currentTime)
   
   if (showTab === 0) {
     return hour

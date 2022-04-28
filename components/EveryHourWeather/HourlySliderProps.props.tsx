@@ -3,6 +3,7 @@ import { Hour } from '../../interfaces/CurrentWeather';
 
 export interface HourlySliderProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   hour?: Array<Hour>
+  currentTime: number
   showTab: number
   className?: string
   spaceBetween?: number
