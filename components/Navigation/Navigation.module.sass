@@ -1,0 +1,34 @@
+@use '../../styles' as *
+
+.navigation
+  display: flex
+  @include fontStyle_H3($font-weight: 300)
+  column-gap: 48px
+  border-bottom: 1px solid $color-white
+  padding: 0 24px
+  
+.btn
+  display: flex
+  position: relative
+  flex-direction: column
+  padding-bottom: 20px
+  cursor: pointer
+
+  &:hover
+    &::after
+      height: 5px
+  
+  &::after
+    position: absolute
+    bottom: 0
+    content: ''
+    display: block
+    width: 100%
+    height: 0px
+    background: $color-white
+    transition: 0.3s all ease
+
+
+  &__active
+    &::after
+      height: 5px

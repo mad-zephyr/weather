@@ -1,0 +1,33 @@
+@use '../../styles' as *
+
+.slide
+  display: flex
+  width: fit-content
+
+.hour
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: auto
+
+.time
+  display: flex
+  column-gap: 8px
+  @include fontStyle_H2
+
+  span
+    &:nth-of-type(2)
+      @include fontStyle($fontSize: 24px, $font-weight: 400)
+
+.temp
+  @include fontStyle_H2($font-weight: 300)
+  display: flex
+  column-gap: 4px
+
+  &::after
+    content: 'o'
+    @include fontStyle($fontSize: 15px, $font-weight: 300)
+
+.icon
+  img
+    height: 124px

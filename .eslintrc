@@ -1,0 +1,35 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react-hooks/recommended"
+	],
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+		"tc39-proposal-temporal"
+	],
+	"rules": {
+		"semi": "off",
+		"@typescript-eslint/semi": [
+			"off"
+		],
+    "indent": 2,
+		"string": "single",
+		"at-rule-no-unknown": false,
+		"at-use-no-unnamespaced": null,
+		"ignoreAtRules": ["/^@use/i", "^/@forward/i",  "/^@mixin/i"],
+		"quotes": ["warn", "single"],
+		"jsx-quotes": ["error", "prefer-double"],
+		"prefer-const": "error",
+		"comma-dangle": ["error", "always-multiline"], 
+		"@typescript-eslint/no-empty-interface": [
+			"error",
+			{
+				"allowSingleExtends": true
+			}
+		]
+	},
+}

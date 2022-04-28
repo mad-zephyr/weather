@@ -1,0 +1,45 @@
+/* stylelint-disable */
+@use './_colors' as *
+@use './_breakpoints' as *
+/* stylelint-disable */
+
+@mixin fontFamily()
+	font-family: 'Inter'
+	font-style: normal
+
+@mixin fontStyle($fontSize: 24px, $lineHeight: 100%, $color: $color-white, $font-weight: 400)
+	@include fontFamily
+	font-weight: $font-weight
+	font-size: $fontSize
+	line-height: $lineHeight
+	color: $color
+
+@mixin fontStyle_H1($fontSize: 56px, $lineHeight: 120%, $color: $color-white, $font-weight: 500)
+	@include fontFamily
+	font-weight: $font-weight
+	font-size: $fontSize
+	line-height: $lineHeight
+	color: $color
+
+	@media (max-width: $breakpoint-mob-max)
+		font-size: 32px
+
+@mixin fontStyle_H2($fontSize: 36px, $lineHeight: 120%, $color: $color-white, $font-weight: 500)
+	@include fontFamily
+	font-weight: $font-weight
+	font-size: $fontSize
+	line-height: $lineHeight
+	color: $color
+
+	@media (max-width: $breakpoint-mob-max)
+		font-size: 32px
+
+@mixin fontStyle_H3($fontSize: 24px, $lineHeight: 120%, $color: $color-white, $font-weight: 500)
+	@include fontFamily
+	font-weight: $font-weight
+	font-size: $fontSize
+	line-height: $lineHeight
+	color: $color
+
+	@media (max-width: $breakpoint-mob-max)
+		font-size: 32px

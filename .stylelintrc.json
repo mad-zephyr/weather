@@ -1,0 +1,31 @@
+{
+	"extends": [
+		"stylelint-config-standard",
+		"stylelint-order-config-standard",
+		"stylelint-config-sass-guidelines"
+	],
+	"plugins": [
+		"stylelint-order",
+		"stylelint-scss"
+	],
+	"rules": {
+		"indentation": [ "tab" ],
+		"block-no-empty": null,
+		"at-rule-no-unknown": null,
+		"at-use-no-unnamespaced": null,
+
+		"font-family-name-quotes": "always-where-recommended",
+		"color-hex-case": "upper",
+		"string-quotes": "single",
+		"selector-class-pattern": "^.*$",
+		"selector-list-comma-newline-after": "always",
+		"declaration-block-no-redundant-longhand-properties": [
+			true,
+			{
+				"ignoreShorthands": [
+					"/grid/"
+				]
+			}
+		]
+	}
+}

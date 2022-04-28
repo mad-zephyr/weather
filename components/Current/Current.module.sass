@@ -1,0 +1,37 @@
+@use '../../styles' as *
+
+.wrapper
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  margin-bottom: 48px
+
+.left
+  display: flex
+  flex-direction: column
+
+.city
+  @include fontStyle_H1
+
+.date
+  @include fontStyle_H3
+
+.weather
+  img
+    height: 100px
+    object-fit: cover
+
+  &__text
+    @include fontStyle_H2
+
+.temp
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  &__now
+    @include fontStyle($fontSize: 180px, $lineHeight: 100%, $color: $color-white, $font-weight: 300)
+
+  &__minmax
+    @include fontStyle($fontSize: 60px, $lineHeight: 100%, $color: $color-white, $font-weight: 200)
+

@@ -1,20 +1,61 @@
 {
-  "name": "whether-app",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.1.5",
-    "react": "18.0.0",
-    "react-dom": "18.0.0"
-  },
-  "devDependencies": {
-    "eslint": "8.14.0",
-    "eslint-config-next": "12.1.5"
-  }
+	"name": "whether-app",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"prepare": "husky install",
+		"dev": "next dev",
+		"export": "next export",
+		"debug": "NODE_OPTIONS='--inspect' next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "eslint -c .eslintrc --ext .js,.css",
+		"stylelint": "stylelint \"**/*.sass\"  --fix "
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"dependencies": {
+		"@js-temporal/polyfill": "^0.4.1",
+		"axios": "^0.24.0",
+		"chart.js": "^3.7.1",
+		"classnames": "^2.3.1",
+		"date-fns": "^2.25.0",
+		"dotenv": "^16.0.0",
+		"framer-motion": "^5.0.0",
+		"next": "12.0.1",
+		"proposal-temporal": "^0.9.0",
+		"react": "17.0.2",
+		"react-chartjs-2": "^4.1.0",
+		"react-dom": "17.0.2",
+		"sass": "^1.51.0",
+		"stylelint-config-sass-guidelines": "^9.0.1",
+		"stylelint-scss": "^4.2.0",
+		"swiper": "^8.1.4",
+		"tc39-proposal-temporal": "^2.0.0"
+	},
+	"devDependencies": {
+		"@svgr/webpack": "^6.1.2",
+		"@types/node": "^14.14.37",
+		"@types/react": "^17.0.3",
+		"@typescript-eslint/eslint-plugin": "^4.20.0",
+		"@typescript-eslint/parser": "^4.20.0",
+		"eslint": "^7.23.0",
+		"eslint-plugin-react-hooks": "^4.2.0",
+		"husky": "^6.0.0",
+		"stylelint": "^14.7.1",
+		"stylelint-config-standard": "^25.0.0",
+		"stylelint-order": "^5.0.0",
+		"stylelint-order-config-standard": "^0.1.3",
+		"typescript": "^4.5.2"
+	}
 }
