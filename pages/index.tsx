@@ -39,7 +39,7 @@ export default function Weather(): JSX.Element {
   }, [currentWeather])
 
   useEffect(() => {
-    getCurrentWeather({q: 'Chisinau', days: 7})
+    getCurrentWeather({q: 'Tokyo', days: 4})
   }, [])
 
   const currentTime = Date.now() / 1000
@@ -51,8 +51,7 @@ export default function Weather(): JSX.Element {
     ? <>
         <div className={style.main}>
           <div className={style.container}>
-            <CurrentSection {...currentWeather}
-            />
+            <CurrentSection {...currentWeather}/>
             <Navigation
               setShowTab={setShowTab}
               showTab={showTab}

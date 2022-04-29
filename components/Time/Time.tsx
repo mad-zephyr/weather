@@ -8,12 +8,13 @@ export const Time: React.FC<TimeProps> = ({ date }): JSX.Element => {
   const timeNow = Temporal.PlainDate.from(data)
 
   const setIntlDate = (countryCode = 'en-En') => {
-    const date = new Intl.DateTimeFormat(countryCode, { dateStyle: 'full' }).format(timeNow).replaceAll(',', '').split(' ')
+    const date = new Intl.DateTimeFormat(countryCode, {
+      dateStyle: 'full'
+    }).format(timeNow).replaceAll(',', '').split(' ')
     return date
   }
 
   const currentDate = setIntlDate()
-
 
   return (
     <><span>{currentDate[1]} {currentDate[2]}, {currentDate[3]}</span></>
