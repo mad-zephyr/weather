@@ -3,16 +3,16 @@ import React from 'react'
 import style from './Current.module.sass'
 import { CurrentWeather } from '../../interfaces/interfaces'
 import { Time } from '../Time/Time'
+import { WeatherIcon } from '../weatherIcons/WeatherIcon'
 
 export const CurrentSection = (props: CurrentWeather): JSX.Element => {
   const { location, current, forecast } = props
-  console.log(props)
-  const { condition } = current
-  const { forecastday } = forecast
+
+  const { condition } = current 
+  const { forecastday } = forecast 
+
   const [today] = forecastday
-  
-  const { last_updated } = current
-  
+
   return (
     <div className={style.wrapper}>
       <div className={style.left}>
@@ -20,10 +20,14 @@ export const CurrentSection = (props: CurrentWeather): JSX.Element => {
           {location?.name}
         </div>
         <div className={style.date}>
-          <Time date={last_updated} />
+          <div className={style.description}>Date & local time</div>
+          <Time
+            location={location?.tz_id}
+            watch={true}
+          />
         </div>
         <div className={style.weather}>
-          <img src={`https:${condition.icon}`} />
+          <WeatherIcon iconCode={condition.code} />
           <div className={style.weather__text}>
             {condition.text}
           </div>

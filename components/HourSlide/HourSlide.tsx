@@ -1,6 +1,7 @@
 import React from 'react'
 import { GetTimeOfDay } from '../getTimeOfDay'
 import style from './Hour.module.sass'
+import { WeatherIcon } from '../weatherIcons/WeatherIcon'
 
 interface HourInterface {
   hour: {
@@ -8,6 +9,7 @@ interface HourInterface {
     condition: {
       icon: string
       text: string
+      code: number
     }
     time: string
   }
@@ -16,7 +18,8 @@ interface HourInterface {
 
 export const HourSlide = ({ hour, index }: HourInterface): JSX.Element => {
   const { temp_c, condition, time } = hour
-
+  const { code } = condition
+  
   return (
     <div className={style.hour}>
       <div className={style.time}>
@@ -25,10 +28,8 @@ export const HourSlide = ({ hour, index }: HourInterface): JSX.Element => {
           index={index}
         />
       </div>
-      <div className="icon">
-        <img
-          src={`https:${condition.icon}`}
-          alt={condition.text} />
+      <div className={style.icon}>
+        <WeatherIcon iconCode={code}/>
       </div>
       <div className={style.temp}> {temp_c} </div>
     </div>

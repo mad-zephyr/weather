@@ -9,17 +9,16 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import "swiper/css/bundle";
 
-import style from './HoursSlider.module.sass'
-import { SliderProps } from './Slider.props';
-import { HourSlide } from '../HourSlide/HourSlide';
-import { setTimeout } from 'timers';
+import style from './Slider.module.sass'
+import { SliderProps } from './Slider.props'
 import cn from 'classnames';
 
 export const Slider: React.FC<SliderProps> = (props: SliderProps): JSX.Element => {
-  const { spaceBetween = 48, slidesPerView = 5, className, children } = props
+  const { spaceBetween = 48, slidesPerView = 5, centered = false, className, children } = props
   
   const navigationPrevRef = React.useRef(null)
   const navigationNextRef = React.useRef(null)
+
 
   return (
     <div className={style.section}>
@@ -41,10 +40,11 @@ export const Slider: React.FC<SliderProps> = (props: SliderProps): JSX.Element =
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         grabCursor={true}
+        centeredSlides={centered}
         onSlideChange={(): void => console.log()}
 
       >{children?.map((child, index) => (
-        <SwiperSlide key={child+index}>
+        <SwiperSlide key={index}>
           {child}
         </SwiperSlide>
       ))}

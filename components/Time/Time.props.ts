@@ -1,3 +1,5 @@
 export interface TimeProps {
-  date: string 
+  location?: string
+  watch?: boolean
+  index?: number
 }

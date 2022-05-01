@@ -12,11 +12,22 @@
 
 .city
   @include fontStyle_H1
+  text-transform: uppercase
+  margin-bottom: 4px
+
+.description
+  @include fontStyle($fontSize: 12px, $color: rgba($color-white, 0.4))
+  margin-bottom: 4px
 
 .date
   @include fontStyle_H3
 
 .weather
+  svg
+    transform: scale(2)
+    height: 70px
+    margin: 24px 0 0 12px
+
   img
     height: 100px
     object-fit: cover
@@ -27,7 +38,7 @@
 .temp
   display: flex
   flex-direction: column
-  align-items: center
+  align-items: flex-end
 
   &__now
     @include fontStyle($fontSize: 180px, $lineHeight: 100%, $color: $color-white, $font-weight: 300)

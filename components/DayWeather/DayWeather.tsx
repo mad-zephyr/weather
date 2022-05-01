@@ -3,9 +3,9 @@ import { DayWeatherProps } from './DayWeather.props'
 
 import style from './DayWeather.module.sass'
 import { Time } from '../Time/Time'
+import { WeatherIcon } from '../weatherIcons/WeatherIcon'
 
-export const DayWeather: React.FC<DayWeatherProps> = ({ currentDay }): JSX.Element => {
-
+export const DayWeather: React.FC<DayWeatherProps> = ({ currentDay, index }): JSX.Element => {
   const { day, astro, hour } = currentDay
 
   function getMin(array): number {
@@ -18,13 +18,16 @@ export const DayWeather: React.FC<DayWeatherProps> = ({ currentDay }): JSX.Eleme
     return minFeelsLikeTemp
   }
 
-  console.log('FEELS: ', hour[0].feelslike_c)
-
   return (
     <div className={style.content}>
-      <div className={style.date}>{<Time date={currentDay.date} />}</div>
+      <div className={style.date}>
+        <Time
+          // date={currentDay.date}
+          index={index}
+        />
+      </div>
       <div className={style.day}>
-        <img src={`https:${day.condition.icon}`} alt={day.condition.text} />
+        <WeatherIcon iconCode={day.condition.code} />
         <div className={style.day__temp}>{ day.maxtemp_c}</div>
       </div>
       <div className={style.footer}>
