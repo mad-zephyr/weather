@@ -34,7 +34,7 @@
 
   &__open
     width: 436px
-    height: 236px
+    min-height: 236px
     border-radius: 24px
     backdrop-filter: blur(16px)
     background: rgba(255, 255, 255, 0.11)
@@ -61,9 +61,65 @@
       svg
         display: initial
         
-
 .content
+  display: flex
+  flex-direction: column
   opacity: 0
+  padding: 24px
 
+  &__open
+    opacity: 1
+
+.title
+  @include fontStyle($fontSize: 24px, $color: $color-white, $font-weight: 400)
+  text-transform: uppercase
+  margin-bottom: 12px
+
+.form
+  display: flex
+  column-gap: 12px
+  align-items: flex-end
+
+.btn
+  background: $color-acent
+  border: none
+  border-radius: 5px
+  height: 48px
+  color: $color-black
+  padding: 0 24px
+  margin: 4px 0
+  white-space: nowrap
+  @include fontStyle(16px, 120%, $color-black)
+  transition: 0.3s all ease
+  cursor: pointer
+
+  &:hover
+    background: darken($color-acent, 5% )
+
+.cityList
+  display: flex
+  flex-wrap: wrap
+  gap: 12px
+  
+.city
+  display: flex
+  align-items: center
+  @include fontStyle(14px, 120%, $color-black)
+  border-radius: 5px
+  background: $color-white
+  padding: 10px 6px 10px 12px
+  cursor: pointer
+  transition: 0.2s background ease
+
+  &:hover
+    background: darken($color-white, 20% )
+
+  svg
+    display: initial
+    cursor: pointer
+    transition: 0.2s fill ease
+
+    &:hover
+      fill: $color-alert
 
   

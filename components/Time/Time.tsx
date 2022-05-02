@@ -8,12 +8,23 @@ import { useState } from 'react'
 
 export const Time: React.FC<TimeProps> = ({ location, watch = false, index = 0 }:TimeProps): JSX.Element => {
   const [clock, setClock] = useState('')
-  const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location).with({day: index + 1})
+  const [zonedTime, setZonedTime] = useState<any>()
 
-  const updateClock = ():void => {
-    const hours = zonedTimeNow.hour
-    const min = zonedTimeNow.minute
-    const sec = zonedTimeNow.second
+  useEffect(() => {
+    if ( index !== null && index >= 0) {
+      const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location).add({ days: index })
+      setZonedTime(zonedTimeNow)
+      return
+    }
+    const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location)
+    setZonedTime(zonedTimeNow)
+  }, [])
+
+  const updateClock = (): void => {
+    const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location)
+    const hours = zonedTimeNow?.hour
+    const min = zonedTimeNow?.minute
+    const sec = zonedTimeNow?.second
 
     const addZero = (num: number): string | number => {
       return num < 10
@@ -23,12 +34,14 @@ export const Time: React.FC<TimeProps> = ({ location, watch = false, index = 0 }
     setClock(prevState => `${hours}:${addZero(min)}:${addZero(sec)}`)
   }
 
-  useInterval(updateClock, 1000)
+  if (watch) {
+    useInterval(updateClock, 1000)
+  }
 
   const setIntlDate = (countryCode = 'en-En') => {
     const date = new Intl.DateTimeFormat(countryCode, {
       dateStyle: 'full'
-    }).format(zonedTimeNow).replaceAll(',', '').split(' ')
+    }).format(zonedTime).replaceAll(',', '').split(' ')
     return date
   }
 

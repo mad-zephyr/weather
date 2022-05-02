@@ -41,7 +41,8 @@
 		"stylelint-config-sass-guidelines": "^9.0.1",
 		"stylelint-scss": "^4.2.0",
 		"swiper": "^8.1.4",
-		"tc39-proposal-temporal": "^2.0.0"
+		"tc39-proposal-temporal": "^2.0.0",
+		"victory": "^36.3.2"
 	},
 	"devDependencies": {
 		"@svgr/webpack": "^6.1.2",

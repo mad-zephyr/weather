@@ -6,15 +6,15 @@ import { Temporal } from '@js-temporal/polyfill'
 import bg from '../assets/chisinau_bg.jpg'
 import style from './index.module.sass'
 import forecastService from '../services/forecast.service.js'
+import LineChart from '../components/Chart/LineChart'
 
 export default function Weather(): JSX.Element {
   const [showTab, setShowTab] = useState<number>(0)
   const [day, setDay] = useState<number>(0)
+  const [city, setCity] = useState<string>('Chisinau')
   const [currentWeather, setCurrentWeather] = useState<CurrentWeather>()
   const [forecastDay, setForecastDay] = useState<Array<ForecastDay>>()
-  const [current, setCurrent] = useState<Current>()
   const [location, setLocation] = useState<Location>()
-  const [showDay, setShowDay] = useState<EveryHour>()
   const [fourcastHours, setFourcastHours] = useState<EveryHour>()
   const [zonedTime, setZonedTime] = useState<number>()
 
@@ -28,9 +28,6 @@ export default function Weather(): JSX.Element {
       
       const { location } = currentWeather
       setLocation(location)
-
-      const { current } = currentWeather
-      setCurrent(current)
 
       if (currentWeather?.forecast ) {
         const { forecastday } = currentWeather.forecast
@@ -53,35 +50,42 @@ export default function Weather(): JSX.Element {
   }, [location])
 
   useEffect(() => {
-    getCurrentWeather({q: 'Chisinau', days: 4})
-  }, [])
+    getCurrentWeather({q: city, days: 4})
+  }, [city])
 
   const currentTime = Date.now() / 1000
 
   return (
     <>
-      <Header />
+      <Header
+        setCity={setCity}
+      />
       { currentWeather
-          ? <div className={style.main}>
-                <div className={style.container}>
-                  <CurrentSection {...currentWeather}/>
-                  <Navigation
-                    setShowTab={setShowTab}
-                    showTab={showTab}
-                  />
-                  <HourlySlider
-                    currentTime={currentTime}
-                    showTab={showTab}
-                    hour={fourcastHours}
-                  />
-                  <DaysSlider
-                    showTab={showTab}
-                    days={forecastDay}
-                    className={style.hourSLider}
-                  />
-                </div>
-                <div className={style.bg} style={{ background: `url(${bg.src}) center center/cover no-repeat` }}/>
-              </div> 
+        ? <div className={style.main}>
+          
+          <div className={style.container}>
+            <CurrentSection {...currentWeather}/>
+            <Navigation
+              setShowTab={setShowTab}
+              showTab={showTab}
+            />
+            <HourlySlider
+              currentTime={currentTime}
+              showTab={showTab}
+              hour={fourcastHours}
+            />
+            <DaysSlider
+              showTab={showTab}
+              days={forecastDay}
+              className={style.hourSLider}
+            />
+            <LineChart
+              showTab={showTab}
+              data={fourcastHours}
+            />
+          </div>
+              <div className={style.bg} style={{ background: `url(${bg.src}) center center/cover no-repeat` }}/>
+        </div>
           : <>Loading... </> }
     </>  
   )
