@@ -18,7 +18,7 @@ export const Time: React.FC<TimeProps> = ({ location, watch = false, index = 0 }
     }
     const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location)
     setZonedTime(zonedTimeNow)
-  }, [])
+  }, [location])
 
   const updateClock = (): void => {
     const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location)

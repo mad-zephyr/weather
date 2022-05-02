@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { CurrentSection, Navigation, HourlySlider, Slider, HourSlide, DaysSlider, Header } from '../components/index'
-import { Current, CurrentWeather, EveryHour, Forecast, ForecastDay, Location } from '../interfaces/CurrentWeather' 
+import { CurrentSection, Navigation, HourlySlider, DaysSlider, Header } from '../components/index'
+import { CurrentWeather, EveryHour, ForecastDay, Location } from '../interfaces/CurrentWeather' 
 import { Temporal } from '@js-temporal/polyfill'
 
 import bg from '../assets/chisinau_bg.jpg'
 import style from './index.module.sass'
 import forecastService from '../services/forecast.service.js'
 import LineChart from '../components/Chart/LineChart'
+import photoService from '../services/photo.service';
+import { getRandom } from '../utils/getRandom';
 
 export default function Weather(): JSX.Element {
   const [showTab, setShowTab] = useState<number>(0)
@@ -17,6 +19,7 @@ export default function Weather(): JSX.Element {
   const [location, setLocation] = useState<Location>()
   const [fourcastHours, setFourcastHours] = useState<EveryHour>()
   const [zonedTime, setZonedTime] = useState<number>()
+  const [bgImage, setBgImage] = useState()
 
   async function getCurrentWeather(payload: object) {
     const data: CurrentWeather = await forecastService.get(payload);
@@ -42,10 +45,17 @@ export default function Weather(): JSX.Element {
     }
   }, [forecastDay])
 
-  useEffect(() => {
+  useEffect(async(): void => {
     if (location) {
       const timeNow = Temporal.Now.zonedDateTimeISO(location?.tz_id).epochMilliseconds
       setZonedTime(timeNow)
+    }
+    if (location) {
+      try {
+        const { results } = await photoService.get({ query: location?.name })
+        const index = getRandom(0, results.length - 1)
+        setBgImage(results[index].urls.regular)
+      } catch (error) {}
     }
   }, [location])
 
@@ -83,9 +93,9 @@ export default function Weather(): JSX.Element {
               showTab={showTab}
               data={fourcastHours}
             />
+            </div>
+                <div className={style.bg} style={{ background: `url(${bgImage}) center center/cover no-repeat` }}/>
           </div>
-              <div className={style.bg} style={{ background: `url(${bg.src}) center center/cover no-repeat` }}/>
-        </div>
           : <>Loading... </> }
     </>  
   )

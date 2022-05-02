@@ -34,7 +34,8 @@
 
   &__open
     width: 436px
-    min-height: 236px
+    min-height: 136px
+    height: fit-content
     border-radius: 24px
     backdrop-filter: blur(16px)
     background: rgba(255, 255, 255, 0.11)
@@ -62,12 +63,13 @@
         display: initial
         
 .content
-  display: flex
+  display: none
   flex-direction: column
   opacity: 0
   padding: 24px
 
   &__open
+    display: flex
     opacity: 1
 
 .title
@@ -121,5 +123,9 @@
 
     &:hover
       fill: $color-alert
+
+.hr
+  width: 100%
+  opacity: 30%
 
   

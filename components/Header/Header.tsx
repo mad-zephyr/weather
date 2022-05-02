@@ -42,6 +42,11 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
   const addCityToStorage = (cityName) => {
     setCityList(prevState => [...prevState, cityName])
     addCityToLocalStorage(cityName)
+    setInputvalue(prevState => ({
+      ...prevState,
+      city: ''
+    }))
+
   }
   const deleteCityFromStorage = (cityName) => {
     const index = cityList.findIndex(item => item === cityName)
@@ -90,15 +95,18 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
                 onClick={() => addCityToStorage(inputValue.city)}
                 className={style.btn}>Add</button>
             </div>
-            <hr style={{ width: '100%', opacity: '30%' }} />
+            <hr className={style.hr} />
             <div className={style.cityList}>
               {cityList?.map((city, index) => {
                 return <div
                   key={city + index}
                   className={style.city}
-                  onClick={()=> hadleActiveCity(city)}
+                  onClick={() => hadleActiveCity(city)}
                 >
-                  {city} <MinCloseIcon onClick={() => deleteCityFromStorage(city)} />
+                  {city} <MinCloseIcon onClick={(event) => {
+                    event.stopPropagation()
+                    deleteCityFromStorage(city)
+                  }} />
                 </div>
               })}
             </div>
