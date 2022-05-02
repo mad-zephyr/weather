@@ -26,6 +26,16 @@ export default function Weather(): JSX.Element {
     setCurrentWeather(data);
   }
 
+  const fetchBGPhoto = async (location) => {
+    if (location) {
+      try {
+        const { results } = await photoService.get({ query: location?.name })
+        const index = getRandom(0, results.length - 1)
+        setBgImage(results[index].urls.regular)
+      } catch (error) {}
+    }
+  }
+
   useEffect(() => {
     if (currentWeather) {
       
@@ -45,18 +55,12 @@ export default function Weather(): JSX.Element {
     }
   }, [forecastDay])
 
-  useEffect(async(): void => {
+  useEffect(() => {
     if (location) {
       const timeNow = Temporal.Now.zonedDateTimeISO(location?.tz_id).epochMilliseconds
       setZonedTime(timeNow)
     }
-    if (location) {
-      try {
-        const { results } = await photoService.get({ query: location?.name })
-        const index = getRandom(0, results.length - 1)
-        setBgImage(results[index].urls.regular)
-      } catch (error) {}
-    }
+    fetchBGPhoto(location)
   }, [location])
 
   useEffect(() => {
