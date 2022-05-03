@@ -38,7 +38,7 @@ export const Time: React.FC<TimeProps> = ({ location, watch = false, index = 0 }
     useInterval(updateClock, 1000)
   }
 
-  const setIntlDate = (countryCode = 'en-En') => {
+  const setIntlDate = (countryCode = 'ro-RO') => {
     const date = new Intl.DateTimeFormat(countryCode, {
       dateStyle: 'full'
     }).format(zonedTime).replaceAll(',', '').split(' ')

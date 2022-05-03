@@ -3,7 +3,6 @@ import { CurrentSection, Navigation, HourlySlider, DaysSlider, Header } from '..
 import { CurrentWeather, EveryHour, ForecastDay, Location } from '../interfaces/CurrentWeather' 
 import { Temporal } from '@js-temporal/polyfill'
 
-import bg from '../assets/chisinau_bg.jpg'
 import style from './index.module.sass'
 import forecastService from '../services/forecast.service.js'
 import LineChart from '../components/Chart/LineChart'

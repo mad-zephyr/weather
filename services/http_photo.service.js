@@ -7,8 +7,6 @@ const http = axios.create({
 
 http.interceptors.request.use(
   async function (config) {
-      const containSlash = /\/$/gi.test(config.url)
-      // config.url = (containSlash ? config.url.slice(0, -1) : config.url) + '.json'
 
       config.params = {
         ...config.params,

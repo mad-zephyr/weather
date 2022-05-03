@@ -60,12 +60,13 @@ function LineChart(props):JSX.Element {
       >
       <VictoryAxis
         dependentAxis
-        animate
+        // animate
         style={{
           axis: {stroke: "#756f6a34"}
         }}
         tickLabelComponent={<VictoryLabel dy={20} style={[{ fill: "#756f6a80" }]}/>}
       />
+
       <VictoryLabel x={25} y={20}
         style={style.label}
         text={`Max ${MAX_TEMP} C`}
