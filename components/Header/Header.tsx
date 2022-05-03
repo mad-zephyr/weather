@@ -18,13 +18,18 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
     const cityList = getCityFromLocalStorage()
     setCityList(cityList)
   }, [])
-  const openHeader = (close = false) => {
+
+  const showHeaderMenu = (event, close) => {
+    event.stopPropagation()
     if (close) {
       setOpen(false)
       return
     }
     setOpen(true)
   }
+
+  const closeHeader = (event) => showHeaderMenu(event, true)
+  const openHeader = (event) => showHeaderMenu(event, false)
 
   const handlerChange = (target) => {
     setInputvalue((prevState) => ({
@@ -48,6 +53,7 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
     }))
 
   }
+
   const deleteCityFromStorage = (cityName) => {
     const index = cityList.findIndex(item => item === cityName)
     cityList.splice(index, 1) 
@@ -60,26 +66,17 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
       <div className={style.container}>
         <div
           ref={headerModal}
-          onClick={(event) => {
-            event.stopPropagation()
-            openHeader(false)
-          }}
+          onClick={openHeader}
           className={cn(style.wrapper, {
             [style.wrapper__open]: isOpen 
           })}
         >
           <div
-            onClick={(event) =>  {
-              event.stopPropagation()
-              openHeader(true)
-            }}
-            className={style.close}>
+            className={style.close}
+            onClick={closeHeader}>
             <CloseIcon/>
           </div>
-          <div
-            className={cn(style.content, {
-            [style.content__open]: isOpen 
-          })}>
+          <div className={cn(style.content, { [style.content__open]: isOpen })}>
             <div className={style.title}>Choose City:</div>
             <div className={style.form}>
               <Input
@@ -96,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
                 className={style.btn}>Add</button>
             </div>
             <hr className={style.hr} />
-            <div className={style.cityList}>
+            <div className={cn(style.cityList, {[style.cityList__open]: isOpen})}>
               {cityList?.map((city, index) => {
                 return <div
                   key={city + index}

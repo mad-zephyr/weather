@@ -15,26 +15,19 @@ import cn from 'classnames';
 
 export const Slider: React.FC<SliderProps> = (props: SliderProps): JSX.Element => {
   const { spaceBetween = 48, slidesPerView = 5, centered = false, className, children } = props
-  
-  const navigationPrevRef = React.useRef(null)
-  const navigationNextRef = React.useRef(null)
-
 
   return (
     <div className={style.section}>
-      <div
-        className={cn(style.shopFront__navigation, 'prev')}
-        ref={navigationPrevRef}
-      >
-        <LeftArrow  />
+      <div datatype='prev' className={cn(style.shopFront__navigation)} >
+        <LeftArrow />
       </div>
       <Swiper
         className={className}
         modules={[Navigation]}
         
         navigation={{
-          prevEl: '.prev',
-          nextEl: '.next'
+          prevEl: `[datatype="prev"]`,
+          nextEl: `[datatype="next"]`
         }}
 
         spaceBetween={spaceBetween}
@@ -49,9 +42,7 @@ export const Slider: React.FC<SliderProps> = (props: SliderProps): JSX.Element =
         </SwiperSlide>
       ))}
       </Swiper>
-      <div
-        className={cn(style.shopFront__navigation, 'next')}
-        ref={navigationNextRef}>
+      <div datatype='next' className={cn(style.shopFront__navigation, 'next')} >
         <RightArrow />
       </div>
     </div>

@@ -75,7 +75,6 @@ export default function Weather(): JSX.Element {
       />
       { currentWeather
         ? <div className={style.main}>
-          
           <div className={style.wrapper}>
             <div className={style.container}>
             <CurrentSection {...currentWeather}/>
@@ -99,9 +98,10 @@ export default function Weather(): JSX.Element {
             />
             </div>
           </div>
-                <div className={style.bg} style={{ background: `url(${bgImage}) center center/cover no-repeat` }}/>
+            <div className={style.bg} style={{ background: `url(${bgImage}) center center/cover no-repeat` }}/>
           </div>
-          : <>Loading... </> }
+        : <>Loading... </>
+      }
     </>  
   )
 }

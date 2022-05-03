@@ -15,6 +15,7 @@
 .wrapper
   width: 36px
   height: 36px
+  min-height: 36px
   border: 7px solid $color-white
   align-self: flex-end
   z-index: 1
@@ -35,7 +36,7 @@
   &__open
     width: 436px
     min-height: 136px
-    height: fit-content
+    height: auto
     border-radius: 24px
     backdrop-filter: blur(16px)
     background: rgba(255, 255, 255, 0.11)
@@ -57,19 +58,20 @@
       right: 12px
       top: 12px
       border-radius: 50%
+      z-index: 4
       cursor: pointer
 
       svg
         display: initial
-        
+
 .content
-  display: none
+  display: flex
+  min-width: 386px
   flex-direction: column
   opacity: 0
   padding: 24px
 
   &__open
-    display: flex
     opacity: 1
 
 .title
@@ -102,7 +104,8 @@
   display: flex
   flex-wrap: wrap
   gap: 6px
-  
+  min-width: 386px
+
 .city
   display: flex
   align-items: center

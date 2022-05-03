@@ -25,7 +25,7 @@ import HeavyRain from './assets/rainy-6.svg'
 import { WeatherIconProps } from './WeatherIcon.props'
 
 export const WeatherIcon: React.FC<WeatherIconProps> = ({ iconCode }: WeatherIconProps): JSX.Element => {
-  
+
   switch (iconCode) {
     case 1000:
         return <Sunny />

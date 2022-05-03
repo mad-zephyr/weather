@@ -11,7 +11,7 @@ export const Time: React.FC<TimeProps> = ({ location, watch = false, index = 0 }
   const [zonedTime, setZonedTime] = useState<any>()
 
   useEffect(() => {
-    if ( index !== null && index >= 0) {
+    if (index !== null && index >= 0) {
       const zonedTimeNow = Temporal.Now.zonedDateTimeISO(location).add({ days: index })
       setZonedTime(zonedTimeNow)
       return
