@@ -12,8 +12,6 @@ const photoService = {
       }
     )
 
-    console.log(data)
-
     return data
   }
 }

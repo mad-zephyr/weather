@@ -77,7 +77,8 @@ export default function Weather(): JSX.Element {
       { currentWeather
         ? <div className={style.main}>
           
-          <div className={style.container}>
+          <div className={style.wrapper}>
+            <div className={style.container}>
             <CurrentSection {...currentWeather}/>
             <Navigation
               setShowTab={setShowTab}
@@ -98,6 +99,7 @@ export default function Weather(): JSX.Element {
               data={fourcastHours}
             />
             </div>
+          </div>
                 <div className={style.bg} style={{ background: `url(${bgImage}) center center/cover no-repeat` }}/>
           </div>
           : <>Loading... </> }
