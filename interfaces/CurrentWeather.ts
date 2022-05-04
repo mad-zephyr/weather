@@ -72,14 +72,14 @@ export type Day = {
 }
 
 export type Location = {
-  name: "London",
-  region: "City of London, Greater London",
-  country: "United Kingdom",
-  lat: 51.52,
+  name: string,
+  region: string,
+  country: string,
+  lat: number,
   lon : number,
-  tz_id: "Europe/London",
-  localtime_epoch : 1651081577,
-  localtime : "2022-04-27 18:46"
+  tz_id: string,
+  localtime_epoch : number,
+  localtime :string
 }
 
 export type EveryHour = Array<Hour>
@@ -93,38 +93,36 @@ export type ForecastDay = {
 }
 
 export type Forecast = {
-  forecastday: Array<ForecastDay> 
+  forecastday: Array<ForecastDay>
 }
 
 export type Current = {
   condition: Condition
-  feelslike_c: 9.5
-  feelslike_f: 49.2
-  gust_kph: 13.7
-  gust_mph: 8.5
-  humidity: 54
-  is_day: 1
-  last_updated: "2022-04-27 18:30"
-  last_updated_epoch: 1651080600
-  precip_in: 0
-  precip_mm: 0
-  pressure_in: 30.36
-  pressure_mb: 1028
-  temp_c: 11
-  temp_f: 51.8
-  uv: 4
-  vis_km: 10
-  vis_miles: 6
-  wind_degree: 70
+  feelslike_c: number
+  feelslike_f: number
+  gust_kph: number
+  gust_mph: number
+  humidity: number
+  is_day:number
+  last_updated: string
+  last_updated_epoch: number
+  precip_in: number
+  precip_mm: number
+  pressure_in: number
+  pressure_mb: number
+  temp_c: number
+  temp_f: number
+  uv: number
+  vis_km: number
+  vis_miles: number
+  wind_degree: number
   wind_dir: "ENE"
-  wind_kph: 11.2
-  wind_mph: 6.9
+  wind_kph: number
+  wind_mph: number
 }
 
-export interface CurrentWeather  {
-  location?: Location
-  current?: Current
-  forecast?: {
-    forecastday?: Array<ForecastDay>
-  }
+export interface WeatherData  {
+  location: Location
+  current: Current
+  forecast: Forecast
 }

@@ -1,22 +1,34 @@
-import * as React from 'react'
-import { HourlySliderProps } from './HourlySliderProps.props';
+import React, { useContext, useEffect, useState } from 'react'
 import { Slider } from '../Slider/Slider';
 import { HourSlide } from '../HourSlide/HourSlide'
+import { AppContext } from '../../context/app.context';
 
-export const HourlySlider = ({ hour, showTab, currentTime }: HourlySliderProps): JSX.Element => {
+export const HourlySlider: React.FC = (): JSX.Element => {
+  const { showTab, weatherData } = useContext(AppContext)
+  const [hour, setHour] = useState()
+  const currentTime = Date.now() / 1000
 
-  const filteredHour = hour?.filter(item => {
-    return item.time_epoch >= currentTime
-  })
+  useEffect(() => {
+    if (weatherData?.forecast?.forecastday) {
+      const { forecastday } = weatherData?.forecast
+      const [hoursDayOne, hoursDayTwo] = [forecastday[0].hour, forecastday[1].hour]
+      const curentHourIndex = hoursDayOne.findIndex(item => item.time_epoch >= currentTime)
+      const filteredHour = hoursDayOne.slice(curentHourIndex)
+      console.log(filteredHour)
+      setHour([...filteredHour, ...hoursDayTwo])
+      // const filteredHour = hour?.filter(item => item.time_epoch >= currentTime)
+    }
+  }, [weatherData])
 
-  const curentSlidePerView = (Array.isArray(filteredHour) && filteredHour?.length <= 5)
-    ? filteredHour?.length
+
+  const curentSlidePerView = (Array.isArray(hour) && hour?.length <= 5)
+    ? hour?.length
     : 5
 
   if (showTab === 0) {
-    return filteredHour
+    return hour
       ? <Slider spaceBetween={32} slidesPerView={curentSlidePerView} >
-          {filteredHour.map((item, index) => (
+          {hour.map((item, index) => (
             <HourSlide key={item.time_epoch} hour={item} index={index} />
           ))}
       </Slider>

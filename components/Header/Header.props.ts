@@ -1,3 +1,1 @@
-export interface HeaderProps {
-  setCity: Function
-}
+export interface HeaderProps {}

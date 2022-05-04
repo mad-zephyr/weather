@@ -1,10 +1,20 @@
-import React from 'react'
-import { Intl } from '@js-temporal/polyfill'
+import React, { useContext, useEffect, useState } from 'react'
+import { Intl, Temporal } from '@js-temporal/polyfill'
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip, createContainer, VictoryLabel } from 'victory'
 import { Hour } from '../../interfaces/CurrentWeather'
+import { AppContext } from '../../context/app.context'
 
-function LineChart(props):JSX.Element {
-  const { showTab, data } = props
+function LineChart(): JSX.Element {
+  const { showTab, weatherData } = useContext(AppContext)
+  const [fourcastHours, setFourcastHours] = useState<Array<Hour>>([])
+
+  useEffect(() => {
+    if (weatherData?.forecast?.forecastday) {
+      const { forecast: { forecastday } } = weatherData
+      const hours = forecastday.map((days, index) => days.hour).slice(0, 2).flat(1)
+      setFourcastHours(hours)
+    }
+  }, [weatherData])
 
   const style = {
     label: {
@@ -19,11 +29,12 @@ function LineChart(props):JSX.Element {
     }
   }
 
-  const updatedData = data?.map((hours, index) => {
-    const data = new Intl.DateTimeFormat('en-En', { dateStyle: 'full' }).formatToParts()
+  const updatedData = fourcastHours?.map((hours, index) => {
+    const rawDate = new Intl.DateTimeFormat('en-En', { dateStyle: 'full' }).formatToParts()
+    const day = Temporal.PlainDate.from(hours.time).day
     const time = hours.time.split(' ')[1]
-    const day = index > 23 ? Number(data[4].value) + 1 : data[4].value
-    const date = `${data[2].value} ${day}, ${time} `
+  
+    const date = `${rawDate[2].value} ${day}, ${time} `
     return {
       ...hours,
       label: `${date} ${String(hours.temp_c)} C `,
@@ -45,7 +56,7 @@ function LineChart(props):JSX.Element {
 
   const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi")
   
-  return showTab === 2
+  return showTab === 2 
     ? <VictoryChart
         style={{
           parent: {

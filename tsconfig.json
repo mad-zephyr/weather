@@ -26,7 +26,7 @@
     "images.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "utils/getTimeOfDay.js"  ],
+, "utils/getTimeOfDay.js", "services/forecast.service.js", "services/http.service.js"  ],
   "exclude": [
     "node_modules"
   ]

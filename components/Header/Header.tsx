@@ -1,14 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react'
-import style from './Header.module.sass'
-import cn from 'classnames'
+import React, { useEffect, useState, useRef, useContext } from 'react'
+import { AppContext } from '../../context/app.context'
 import { HeaderProps } from './Header.props'
 import useCloseModal from '../../hooks/useCloseModal'
 import { Input } from '../Input/Input'
 import { addCityToLocalStorage, getCityFromLocalStorage, removeCityFromStorage } from '../../services/localStorage.service';
 import CloseIcon from './close.svg'
 import MinCloseIcon from '../../assets/close.svg'
+import cn from 'classnames'
 
-export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
+import style from './Header.module.sass'
+
+export const Header: React.FC<HeaderProps> = (): JSX.Element => {
+  const {setCity} = useContext(AppContext)
   const [isOpen, setOpen] = useState(false)
   const [inputValue, setInputvalue] = useState({city: ''})
   const [cityList, setCityList] = useState<Array<string>>([])
@@ -28,6 +31,8 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
     setOpen(true)
   }
 
+  useCloseModal(isOpen, setOpen, headerModal)
+
   const closeHeader = (event) => showHeaderMenu(event, true)
   const openHeader = (event) => showHeaderMenu(event, false)
 
@@ -38,11 +43,7 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
     }))
   }
 
-  const hadleActiveCity = (locationName) => {
-    setCity(locationName)
-  }
-
-  useCloseModal(isOpen, setOpen, headerModal)
+  const hadleActiveCity = (locationName) => setCity && setCity(locationName)
 
   const addCityToStorage = (cityName) => {
     setCityList(prevState => [...prevState, cityName])
@@ -51,7 +52,6 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
       ...prevState,
       city: ''
     }))
-
   }
 
   const deleteCityFromStorage = (cityName) => {
@@ -67,16 +67,14 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
         <div
           ref={headerModal}
           onClick={openHeader}
-          className={cn(style.wrapper, {
-            [style.wrapper__open]: isOpen 
-          })}
+          className={cn(style.wrapper, { [style.wrapper__open]: isOpen })}
         >
           <div
             className={style.close}
             onClick={closeHeader}>
             <CloseIcon/>
           </div>
-          <div className={cn(style.content, { [style.content__open]: isOpen })}>
+          <div className={cn(style.content, {[style.content__open]: isOpen })}>
             <div className={style.title}>Choose City:</div>
             <div className={style.form}>
               <Input
@@ -94,18 +92,15 @@ export const Header: React.FC<HeaderProps> = ({setCity}):JSX.Element => {
             </div>
             <hr className={style.hr} />
             <div className={cn(style.cityList, {[style.cityList__open]: isOpen})}>
-              {cityList?.map((city, index) => {
-                return <div
+              {cityList?.map((city, index) => (
+                <div
                   key={city + index}
                   className={style.city}
                   onClick={() => hadleActiveCity(city)}
                 >
-                  {city} <MinCloseIcon onClick={(event) => {
-                    event.stopPropagation()
-                    deleteCityFromStorage(city)
-                  }} />
+                  {city} <MinCloseIcon onClick={() => { deleteCityFromStorage(city)}} />
                 </div>
-              })}
+              ))}
             </div>
           </div>
         </div>

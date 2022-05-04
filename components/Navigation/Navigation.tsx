@@ -1,22 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import style from './Navigation.module.sass'
 import cn from 'classnames'
 import { NavigationProps } from './Navigation.props'
+import { AppContext } from '../../context/app.context'
 
-export const Navigation = (props: NavigationProps): JSX.Element => {
-  const { setShowTab, showTab } = props
+export const Navigation: React.FC<NavigationProps> = (): JSX.Element => {
+  const { showTab, setShowTab } = useContext(AppContext)
 
   const data = ['Hourly', 'Daily', 'Details', 'Precipitation']
 
   return (
     <div className={style.navigation}>
-      {data.map((item, index) => <div
-        onClick={() => setShowTab(index)}
-        key={item + index}
-        className={cn(style.btn, {
-          [style.btn__active]: showTab === index
-        })}
+      {data.map((item, index) => <div key={item + index}
+        onClick={() => setShowTab && setShowTab(index)} 
+        className={cn(style.btn, { [style.btn__active]: showTab === index})}
       >{item}</div>)}
     </div>
   )
