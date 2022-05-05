@@ -4,11 +4,17 @@ import { CurrentSection, Navigation, HourlySlider, DaysSlider, Header, Backgroun
 import style from './index.module.sass'
 import LineChart from '../components/Chart/LineChart'
 import { AppContextProvider } from '../context/app.context'
+import localStorageService from '../services/localStorage.service'
 
 const Weather: React.FC = (): JSX.Element => {
 
+  const cityState = {
+    cityList: localStorageService.getCityFromLocalStorage(),
+    activeCity: 'Chisinau'
+  }
+
   return (
-    <AppContextProvider>
+    <AppContextProvider cityState={cityState} showTab={2}>
       <Header />
       <div className={style.main}>
         <div className={style.wrapper}>
