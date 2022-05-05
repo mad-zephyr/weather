@@ -14,7 +14,7 @@ export const Header: React.FC<HeaderProps> = (): JSX.Element => {
   const { cityState, dispatch } = useContext(AppContext)
   const [isOpen, setOpen] = useState(false)
   const [inputValue, setInputvalue] = useState({city: ''})
-  const headerModal = useRef<any>(null)
+  const headerModal = useRef<HTMLDivElement>(null)
 
   const showHeaderMenu = (event: React.SyntheticEvent, close: boolean): void => {
     event.stopPropagation()
@@ -80,7 +80,7 @@ export const Header: React.FC<HeaderProps> = (): JSX.Element => {
             </div>
             <hr className={style.hr} />
             <div className={cn(style.cityList, {[style.cityList__open]: isOpen})}>
-              {cityState?.cityList.map((city, index) => (
+              {cityState?.cityList?.map((city, index) => (
                 <div
                   key={city + index}
                   className={style.city}
