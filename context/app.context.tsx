@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, ReactNode, useEffect, useReducer, useState, useContext } from 'react';
+import { createContext, PropsWithChildren, ReactNode, useEffect, useReducer, useState, useContext, ReducerWithoutAction } from 'react';
 import { WeatherData, Location } from '../interfaces/CurrentWeather';
 import forecastService from '../services/forecast.service.js';
 import localStorageService from '../services/localStorage.service'
@@ -11,24 +11,27 @@ export interface IAppContext {
   showTab: number
   setShowTab?: (num: number) => void
   location?: Location
+  dispatch?: Function
   children?: ReactNode
 }
+
+const cityFromStorage = localStorageService.getCityFromLocalStorage()
 
 const initialData = {
   showTab: 2,
   cityState: {
-    cityList: localStorageService.getCityFromLocalStorage(),
+    cityList: cityFromStorage,
     activeCity: 'Chisinau'
   }
 }
 
 export const AppContext = createContext<IAppContext>(initialData)
 
-export const AppContextProvider = ({ children }: PropsWithChildren<IAppContext>)=> {
-  const [weatherData, setWeatherData] = useState<WeatherData>()
+export const AppContextProvider = ({ children }: IAppContext) => {
   const data = useContext(AppContext)
-  const [showTab, setShowTab] = useState<number>(2)
   const [cityState, dispatch] = useReducer(cityReducer, data.cityState)
+  const [weatherData, setWeatherData] = useState<WeatherData>()
+  const [showTab, setShowTab] = useState<number>(2)
   const [location, setLocation] = useState<Location>()
 
   async function getCurrentWeather(payload: object) {
@@ -44,18 +47,19 @@ export const AppContextProvider = ({ children }: PropsWithChildren<IAppContext>)
     } catch (error) { }
   }
 
-  console.log('cityState: ', cityState, data)
-
   useEffect(() => {
-    getCurrentWeather({q: cityState.activeCity, days: 4})
-  }, [cityState])
+    const { activeCity } = cityState
+    getCurrentWeather({q: activeCity, days: 4})
+  }, [cityState.activeCity])
 
   return <AppContext.Provider value={{
     cityState,
     showTab,
     setShowTab,
     weatherData,
-    location: location && location
+    location: location && location,
+    dispatch,
+    children: children
   }}>
     {children}
   </AppContext.Provider>

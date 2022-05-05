@@ -18,7 +18,6 @@ const Weather: React.FC = (): JSX.Element => {
             <HourlySlider />
             <DaysSlider className={style.hourSLider} />
             <LineChart />
-            {/* //data={fourcastHours} */}
           </div>
         </div>
         <Background />
