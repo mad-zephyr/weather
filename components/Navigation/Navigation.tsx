@@ -2,10 +2,9 @@ import React, { useContext } from 'react'
 
 import style from './Navigation.module.sass'
 import cn from 'classnames'
-import { NavigationProps } from './Navigation.props'
 import { AppContext } from '../../context/app.context'
 
-export const Navigation: React.FC<NavigationProps> = (): JSX.Element => {
+export const Navigation: React.FC = (): JSX.Element => {
   const { showTab, setShowTab } = useContext(AppContext)
 
   const data = ['Hourly', 'Daily', 'Details', 'Precipitation']

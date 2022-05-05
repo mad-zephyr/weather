@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, ReactNode, useEffect, useReducer, useState, useContext, ReducerWithoutAction } from 'react';
+import { createContext, ReactNode, useEffect, useReducer, useState, useContext } from 'react';
 import { WeatherData, Location } from '../interfaces/CurrentWeather';
 import forecastService from '../services/forecast.service.js';
 import localStorageService from '../services/localStorage.service'
@@ -6,9 +6,9 @@ import { cityReducer, CityStateProps } from './city.reducer';
 
 export interface IAppContext {
   weatherData?: WeatherData
-  cityState: CityStateProps
+  cityState?: CityStateProps
+  showTab?: number
   bgImage?: string
-  showTab: number
   setShowTab?: (num: number) => void
   location?: Location
   dispatch?: Function
@@ -28,8 +28,9 @@ const initialData = {
 export const AppContext = createContext<IAppContext>(initialData)
 
 export const AppContextProvider = ({ children }: IAppContext) => {
-  const data = useContext(AppContext)
-  const [cityState, dispatch] = useReducer(cityReducer, data.cityState)
+
+  const [cityState, dispatch] = useReducer(cityReducer, initialData.cityState)
+
   const [weatherData, setWeatherData] = useState<WeatherData>()
   const [showTab, setShowTab] = useState<number>(2)
   const [location, setLocation] = useState<Location>()

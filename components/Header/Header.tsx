@@ -10,7 +10,7 @@ import cn from 'classnames'
 import style from './Header.module.sass'
 import { CityEnum } from '../../context/city.reducer'
 
-export const Header: React.FC<HeaderProps> = (): JSX.Element => {
+export const Header: React.FC = (): JSX.Element => {
   const { cityState, dispatch } = useContext(AppContext)
   const [isOpen, setOpen] = useState(false)
   const [inputValue, setInputvalue] = useState({city: ''})

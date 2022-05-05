@@ -1,4 +1,4 @@
-import localStorageService from '../services/localStorage.service';
+import localStorageService from '../services/localStorage.service'
 
 export enum CityEnum {
   deleteCity = 'CITY_DELETED',
