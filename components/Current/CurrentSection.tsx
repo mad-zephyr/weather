@@ -18,8 +18,6 @@ export const CurrentSection = (): JSX.Element => {
   const [current, setCurrent] = useState<Current>()
 
   const [location, setLocation] = useState<Location>()
-
-  console.log(weatherData)
   
   useEffect(() => {
     if (weatherData) {

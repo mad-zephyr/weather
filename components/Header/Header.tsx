@@ -1,40 +1,33 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
+import React, {  useState, useRef, useContext, useReducer } from 'react'
 import { AppContext } from '../../context/app.context'
 import { HeaderProps } from './Header.props'
 import useCloseModal from '../../hooks/useCloseModal'
 import { Input } from '../Input/Input'
-import { addCityToLocalStorage, getCityFromLocalStorage, removeCityFromStorage } from '../../services/localStorage.service';
 import CloseIcon from './close.svg'
 import MinCloseIcon from '../../assets/close.svg'
 import cn from 'classnames'
 
 import style from './Header.module.sass'
+import { CityEnum, cityReducer } from '../../context/city.reducer'
 
 export const Header: React.FC<HeaderProps> = (): JSX.Element => {
-  const {setCity} = useContext(AppContext)
+  const { cityState: state } = useContext(AppContext)
+  const [cityState, dispatch] = useReducer(cityReducer, state)
   const [isOpen, setOpen] = useState(false)
   const [inputValue, setInputvalue] = useState({city: ''})
-  const [cityList, setCityList] = useState<Array<string>>([])
-  const headerModal = useRef<any>(null)
+  const headerModal = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const cityList = getCityFromLocalStorage()
-    setCityList(cityList)
-  }, [])
-
-  const showHeaderMenu = (event, close) => {
+  const showHeaderMenu = (event: React.SyntheticEvent, close: boolean): void => {
     event.stopPropagation()
-    if (close) {
-      setOpen(false)
-      return
-    }
-    setOpen(true)
+    close
+      ? setOpen(false)
+      : setOpen(true)
   }
 
   useCloseModal(isOpen, setOpen, headerModal)
 
-  const closeHeader = (event) => showHeaderMenu(event, true)
-  const openHeader = (event) => showHeaderMenu(event, false)
+  const closeHeader = (event: React.SyntheticEvent) => showHeaderMenu(event, true)
+  const openHeader = (event: React.SyntheticEvent) => showHeaderMenu(event, false)
 
   const handlerChange = (target) => {
     setInputvalue((prevState) => ({
@@ -43,22 +36,20 @@ export const Header: React.FC<HeaderProps> = (): JSX.Element => {
     }))
   }
 
-  const hadleActiveCity = (locationName) => setCity && setCity(locationName)
+  const handleCity = (event: React.SyntheticEvent, type: CityEnum, locationName: string) => {
+    event.stopPropagation()
 
-  const addCityToStorage = (cityName) => {
-    setCityList(prevState => [...prevState, cityName])
-    addCityToLocalStorage(cityName)
-    setInputvalue(prevState => ({
-      ...prevState,
-      city: ''
-    }))
-  }
-
-  const deleteCityFromStorage = (cityName) => {
-    const index = cityList.findIndex(item => item === cityName)
-    cityList.splice(index, 1) 
-    setCityList([...cityList])
-    removeCityFromStorage(cityName)
+    switch (type) {
+      case CityEnum.deleteCity:
+        dispatch({ type: CityEnum.deleteCity, payload: locationName })
+        break
+      case CityEnum.addCity:
+        dispatch({ type: CityEnum.addCity, payload: locationName }) 
+        break
+      case CityEnum.setActiveCity:
+        dispatch({ type: CityEnum.setActiveCity, payload: locationName }) 
+        break
+    }
   }
 
   return (
@@ -69,9 +60,7 @@ export const Header: React.FC<HeaderProps> = (): JSX.Element => {
           onClick={openHeader}
           className={cn(style.wrapper, { [style.wrapper__open]: isOpen })}
         >
-          <div
-            className={style.close}
-            onClick={closeHeader}>
+          <div className={style.close} onClick={closeHeader}>
             <CloseIcon/>
           </div>
           <div className={cn(style.content, {[style.content__open]: isOpen })}>
@@ -87,18 +76,18 @@ export const Header: React.FC<HeaderProps> = (): JSX.Element => {
                 onChange={handlerChange}
               />
               <button
-                onClick={() => addCityToStorage(inputValue.city)}
+                onClick={(event) => handleCity(event, CityEnum.addCity, inputValue.city)}
                 className={style.btn}>Add</button>
             </div>
             <hr className={style.hr} />
             <div className={cn(style.cityList, {[style.cityList__open]: isOpen})}>
-              {cityList?.map((city, index) => (
+              {cityState.cityList?.map((city, index) => (
                 <div
                   key={city + index}
                   className={style.city}
-                  onClick={() => hadleActiveCity(city)}
+                  onClick={(event) => handleCity(event, CityEnum.setActiveCity, city)}
                 >
-                  {city} <MinCloseIcon onClick={() => { deleteCityFromStorage(city)}} />
+                  {city} <MinCloseIcon onClick={(event) => handleCity(event, CityEnum.deleteCity, city)} />
                 </div>
               ))}
             </div>

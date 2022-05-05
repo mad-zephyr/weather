@@ -56,7 +56,7 @@ function LineChart(): JSX.Element {
 
   const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi")
   
-  return showTab === 2 
+  return updatedData && showTab === 2
     ? <VictoryChart
         style={{
           parent: {
@@ -123,7 +123,10 @@ function LineChart(): JSX.Element {
           )
         })}
       <VictoryAxis
-        tickFormat={(ticks) => ticks.split(' ')[1].split(':')[0]}
+        tickFormat={(ticks) => typeof ticks === 'string'
+          ? ticks.split(' ')[1].split(':')[0]
+          : ticks
+        }
         tickLabelComponent={<VictoryLabel dy={20} style={[{ fill: "#756f6a80" }]} />}
 
         style={{

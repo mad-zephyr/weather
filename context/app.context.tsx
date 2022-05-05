@@ -1,33 +1,35 @@
-import { createContext, PropsWithChildren, ReactNode, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, ReactNode, useEffect, useReducer, useState, useContext } from 'react';
 import { WeatherData, Location } from '../interfaces/CurrentWeather';
 import forecastService from '../services/forecast.service.js';
+import localStorageService from '../services/localStorage.service'
+import { cityReducer, CityStateProps } from './city.reducer';
 
 export interface IAppContext {
   weatherData?: WeatherData
-  city?: string
+  cityState: CityStateProps
   bgImage?: string
   showTab: number
   setShowTab?: (num: number) => void
-  setCity?: (city: string) => void
   location?: Location
   children?: ReactNode
 }
 
 const initialData = {
   showTab: 2,
+  cityState: {
+    cityList: localStorageService.getCityFromLocalStorage(),
+    activeCity: 'Chisinau'
+  }
 }
 
 export const AppContext = createContext<IAppContext>(initialData)
 
 export const AppContextProvider = ({ children }: PropsWithChildren<IAppContext>)=> {
   const [weatherData, setWeatherData] = useState<WeatherData>()
-  const [showTab, setShowTab] = useState<number>(3)
-  const [cityState, setCityState] = useState<string>('Chisinau')
+  const data = useContext(AppContext)
+  const [showTab, setShowTab] = useState<number>(2)
+  const [cityState, dispatch] = useReducer(cityReducer, data.cityState)
   const [location, setLocation] = useState<Location>()
-
-  const setCity = (city: string) => {
-    setCityState(city)
-  }
 
   async function getCurrentWeather(payload: object) {
     try {
@@ -42,13 +44,14 @@ export const AppContextProvider = ({ children }: PropsWithChildren<IAppContext>)
     } catch (error) { }
   }
 
+  console.log('cityState: ', cityState, data)
+
   useEffect(() => {
-    getCurrentWeather({q: cityState, days: 4})
+    getCurrentWeather({q: cityState.activeCity, days: 4})
   }, [cityState])
 
   return <AppContext.Provider value={{
-    city: cityState,
-    setCity,
+    cityState,
     showTab,
     setShowTab,
     weatherData,

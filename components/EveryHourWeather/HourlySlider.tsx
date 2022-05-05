@@ -14,7 +14,7 @@ export const HourlySlider: React.FC = (): JSX.Element => {
       const [hoursDayOne, hoursDayTwo] = [forecastday[0].hour, forecastday[1].hour]
       const curentHourIndex = hoursDayOne.findIndex(item => item.time_epoch >= currentTime)
       const filteredHour = hoursDayOne.slice(curentHourIndex)
-      console.log(filteredHour)
+
       setHour([...filteredHour, ...hoursDayTwo])
       // const filteredHour = hour?.filter(item => item.time_epoch >= currentTime)
     }
