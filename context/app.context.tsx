@@ -58,8 +58,7 @@ export const AppContextProvider = ({ children }: IAppContext) => {
     setShowTab,
     weatherData,
     location: location && location,
-    dispatch,
-    children: children
+    dispatch
   }}>
     {children}
   </AppContext.Provider>

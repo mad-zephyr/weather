@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Slider } from '../Slider/Slider';
 import { HourSlide } from '../HourSlide/HourSlide'
 import { AppContext } from '../../context/app.context';
+import { Hour } from '../../interfaces/CurrentWeather';
 
 export const HourlySlider: React.FC = (): JSX.Element => {
   const { showTab, weatherData } = useContext(AppContext)
-  const [hour, setHour] = useState()
+  const [hour, setHour] = useState<Array<Hour>>()
   const currentTime = Date.now() / 1000
 
   useEffect(() => {
