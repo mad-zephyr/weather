@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useReducer, useEffect } from 'react'
+import React, { useState, useRef, useContext, useCallback, useEffect, FunctionComponentElement } from 'react'
 import { AppContext } from '../../context/app.context'
 import useCloseModal from '../../hooks/useCloseModal'
 import { Input } from '../Input/Input'
@@ -10,7 +10,7 @@ import style from './Header.module.sass'
 import { CityEnum, CityProps } from '../../context/city.reducer'
 import locationWeatherService from '../../services/search.service'
 import { PossibleLocation } from '../../interfaces/variationLocation'
-
+import useDebounce from '../../hooks/useDebounce'
 
 export const Header: React.FC = (): JSX.Element => {
   const { cityState, dispatch } = useContext(AppContext)
@@ -51,6 +51,7 @@ export const Header: React.FC = (): JSX.Element => {
       case CityEnum.addCity:
         dispatch && dispatch({ type: CityEnum.addCity, payload: locationName })
         dispatch && dispatch({ type: CityEnum.setActiveCity, payload: locationName }) 
+        setInputvalue(prevState => ({ ...prevState, city: '' }))
         setAvailableLocation([])
         break
       case CityEnum.setActiveCity:
@@ -59,19 +60,19 @@ export const Header: React.FC = (): JSX.Element => {
     }
   }
 
-  async function getLocation(payload) {
+  const getLocation = async (params: {q: string}) => {
     try {
-      const data = await locationWeatherService.get(payload)
+      const data = await locationWeatherService.get(params)
       setAvailableLocation(data)
     } catch (error) {}
   }
 
-  useEffect(() => {
-    if (inputValue.city.length > 4) {
-      getLocation({q: inputValue.city})
-    }
-  }, [inputValue.city])
+  const deBounce = useCallback(useDebounce(getLocation, 500), [])
 
+  useEffect(() => {
+    inputValue.city.length &&  deBounce({q: inputValue.city})
+  }, [inputValue.city])
+  
   return (
     <div className={style.header}>
       <div className={style.container}>
@@ -97,10 +98,9 @@ export const Header: React.FC = (): JSX.Element => {
               />
               {availableLocation.length > 0 && <div ref={dropDown} className={style.variation}>
                 {availableLocation.map((city, index) => {
-
                   return <>
                     <div
-                      key={city.id+ index}
+                      key={city.id + index}
                       onClick={(event) => handleCity(event, CityEnum.addCity, city)}
                       className={style.variation__places}
                     >

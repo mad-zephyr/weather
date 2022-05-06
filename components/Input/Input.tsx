@@ -1,4 +1,4 @@
-import React, { useState, useEffect, InputHTMLAttributes } from 'react'
+import React, { useState, useEffect } from 'react'
 import cn from 'classnames'
 
 import AlertIcon from '../../assets/alert-icon.svg'
