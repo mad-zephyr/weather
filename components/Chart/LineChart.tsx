@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Intl, Temporal } from '@js-temporal/polyfill'
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTooltip, createContainer, VictoryLabel } from 'victory'
 import { Hour } from '../../interfaces/CurrentWeather'
@@ -29,7 +29,8 @@ function LineChart(): JSX.Element {
     }
   }
 
-  const updatedData = fourcastHours?.map((hours, index) => {
+  const updatedData = useMemo(() => fourcastHours?.map((hours, index) => {
+
     const rawDate = new Intl.DateTimeFormat('en-En', { dateStyle: 'full' }).formatToParts()
     const day = Temporal.PlainDate.from(hours.time).day
     const time = hours.time.split(' ')[1]
@@ -39,7 +40,7 @@ function LineChart(): JSX.Element {
       ...hours,
       label: `${date} ${String(hours.temp_c)} C `,
     }
-  })
+  }), [fourcastHours])
 
   let MAX_TEMP = -90;
   let MIN_TEMP = 90;

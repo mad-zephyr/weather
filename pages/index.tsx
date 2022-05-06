@@ -4,7 +4,6 @@ import { CurrentSection, Navigation, HourlySlider, DaysSlider, Header, Backgroun
 import style from './index.module.sass'
 import LineChart from '../components/Chart/LineChart'
 import { AppContextProvider } from '../context/app.context'
-import localStorageService from '../services/localStorage.service'
 
 const Weather: React.FC = (): JSX.Element => {
 

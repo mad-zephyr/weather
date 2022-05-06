@@ -21,6 +21,8 @@ export const Header: React.FC = (): JSX.Element => {
   const dropDown = useRef<HTMLDivElement>(null)
   const FLAG_ENDPOINT = 'https://countryflagsapi.com/svg'
 
+
+
   const showHeaderMenu = (event: React.SyntheticEvent, close: boolean): void => {
     event.stopPropagation()
     close
@@ -67,10 +69,10 @@ export const Header: React.FC = (): JSX.Element => {
     } catch (error) {}
   }
 
-  const deBounce = useCallback(useDebounce(getLocation, 500), [])
+  const getLocationDebounced = useDebounce(getLocation, 500)
 
   useEffect(() => {
-    inputValue.city.length &&  deBounce({q: inputValue.city})
+    inputValue.city.length &&  getLocationDebounced({q: inputValue.city})
   }, [inputValue.city])
   
   return (
