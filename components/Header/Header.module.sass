@@ -117,7 +117,7 @@
   display: flex
   flex-wrap: wrap
   gap: 6px
-  min-width: 386px
+  min-width: 100%
 
 .city
   display: flex
@@ -176,3 +176,21 @@
     & > span:nth-of-type(2)
       color: grey
   
+@media (max-width: $breakpoint-mob-min)
+  .header 
+    top: 24px
+
+  .wrapper
+    &__open
+      width: 340px
+
+  .container
+    padding: 0 24px
+
+    .content
+      min-width: 100% 
+      padding: 24px
+
+  .cityList 
+    gap: 6px
+    
