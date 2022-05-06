@@ -24,7 +24,7 @@
   backdrop-filter: blur(0px)
   background: rgba(0, 0, 0, 0.0)
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15)
-
+  
   cursor: pointer
   transition: 0.3s all ease-in-out
 
@@ -44,6 +44,7 @@
     border: 1px solid rgba($color-white, 0.5)
     box-shadow: inset 0px -2px 4px rgba(255, 255, 255, 0.25), inset 0px 0px 8px rgba(255, 255, 255, 0.42)
     cursor: auto
+    animation: 0.3s openModal 1 forwards
 
     &:hover
       border-color: $color-white
@@ -66,6 +67,15 @@
       svg
         display: initial
 
+@keyframes openModal
+  0%
+    overflow: hidden
+  99%
+    overflow: hidden
+  100%
+    overflow: initial
+    
+
 .content
   display: flex
   min-width: 386px
@@ -82,6 +92,7 @@
   margin-bottom: 12px
 
 .form
+  position: relative
   display: flex
   column-gap: 12px
   align-items: flex-end
@@ -133,4 +144,35 @@
   width: 100%
   opacity: 30%
 
+.variation
+  position: absolute
+  display: flex
+  flex-direction: column
+  top: 82px
+  background: $color-white
+  width: 100%
+  z-index: 2
+  padding: 4px 0
+  border-radius: 5px
+
+  img
+    width: 24px
+    margin-right: 8px
+
+  & > div
+    display: flex
+    align-items: center
+    height: 42px
+    padding: 0 12px
+    column-gap: 4px
+    white-space: nowrap
+    cursor: pointer
+    transition: 0.1s all ease
+    border-bottom: 1px solid #80808020
+
+    &:hover
+      background: darken($color-white, 10%)
+
+    & > span:nth-of-type(2)
+      color: grey
   

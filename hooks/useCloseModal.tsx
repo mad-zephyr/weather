@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 
-export default function useCloseModal(state, setState,  reference) {
+export default function useCloseModal(state, setState, reference, exact = false) {
   useEffect(() => {
     const checkIfClickedOutside = (event) => {
       if (state && reference.current && !reference.current.contains(event.target)) {
-        setState(false)
+        setState(exact)
       }
     }
     document.addEventListener("mousedown", checkIfClickedOutside)

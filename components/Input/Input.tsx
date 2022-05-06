@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, InputHTMLAttributes } from 'react'
 import cn from 'classnames'
 
 import AlertIcon from '../../assets/alert-icon.svg'
@@ -9,35 +9,21 @@ import HidePassIcon from '../../assets/charm_eye-slash.svg'
 import style from './Input.module.sass'
 import { InputProps } from './Input.props'
 
-export const Input: React.FC<InputProps> = (props) => {
+export const Input: React.FC<InputProps> = (props): JSX.Element => {
   const { label, inputType, value, classes, name, onChange, placeholder, error, touchInput } = props
   const [isSeePass, setIsSeePass] = useState('password')
   const [touched, setTouched] = useState(false)
 
-
-  const handleChange = ({target}) => {
+  const handleChange = ({target}: React.BaseSyntheticEvent): void => {
     onChange({ name: target.name, value: target.value })
   }
 
   useEffect(() => {
-    if (touchInput) {
-      handleBlur()
-    }
+    touchInput && handleBlur()
   }, [touchInput])
 
-  const handleBlur = () => {
-    setTouched(true)
-  }
-
-  const handleSeePass = () => {
-    setIsSeePass(prevState => {
-      if (prevState === 'password') {
-        return 'text'
-      } else {
-        return 'password'
-      }
-    })
-  }
+  const handleBlur = () => setTouched(true)
+  const handleSeePass = () => setIsSeePass(prevState => prevState === 'password' ? 'password' : 'text' )
 
   const setPasswordIcon = () => {
     return isSeePass === 'text'

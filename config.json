@@ -2,6 +2,7 @@
   "apiEndpoint": "https://api.weatherapi.com/v1",
   "apiKey": "889da254a4b543d78f6101931222604",
   "UNSPLASH_ENDPOINT": "https://api.unsplash.com",
+  "FLAGS_ENDPOINT": "https://countryflagsapi.com/svg",
   "UNSPLASH_ACCESS_KEY": "Jkkj7Jd9tH3dCNl6QnnsYeycPGfjpw-hg1eY9_LOWuI",
   "UNSPLASH_SECRET_KEY": "H2Nl0mwIxaC9UDN7VYU35x0JPNLtLifK9K2d1UvPrwc"
 }
