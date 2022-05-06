@@ -12,18 +12,18 @@
 		"lint": "eslint -c .eslintrc --ext .js,.css",
 		"stylelint": "stylelint \"**/*.sass\"  --fix "
 	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
+ "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.4.1",
 		"axios": "^0.24.0",

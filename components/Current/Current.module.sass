@@ -1,4 +1,6 @@
+/* stylelint-disable */
 @use '../../styles' as *
+/* stylelint-disable */
 
 .wrapper
   display: flex
@@ -21,7 +23,7 @@
 
   &__right
     text-align: right
-    letter-spacing: 0em
+    letter-spacing: 0
 
 .date
   @include fontStyle_H3
@@ -62,14 +64,14 @@
     & > div
       display: flex
       flex-direction: column
-    
+
   .description
     margin-bottom: 4px
     @include fontStyle($fontSize: 12px, $color: rgba($color-white, 0.4))
 
     &__right
       text-align: left
-      letter-spacing: 0em
+      letter-spacing: 0
 
   .temp
     display: flex
