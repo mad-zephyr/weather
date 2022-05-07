@@ -20,8 +20,8 @@ const Weather: React.FC = (): JSX.Element => {
             <LineChart />
           </div>
         </div>
-        <Background />
       </div>
+      <Background />
     </AppContextProvider>  
   )
 }

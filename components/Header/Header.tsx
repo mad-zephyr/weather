@@ -14,14 +14,14 @@ import useDebounce from '../../hooks/useDebounce'
 
 export const Header: React.FC = (): JSX.Element => {
   const { cityState, dispatch } = useContext(AppContext)
+  const [activeInput, setActiveInput] = useState(false)
   const [availableLocation, setAvailableLocation] = useState<Array<PossibleLocation>>([])
   const [isOpen, setOpen] = useState(false)
   const [inputValue, setInputvalue] = useState({city: ''})
   const headerModal = useRef<HTMLDivElement>(null)
   const dropDown = useRef<HTMLDivElement>(null)
+  const input = useRef<HTMLDivElement>(null)
   const FLAG_ENDPOINT = 'https://countryflagsapi.com/svg'
-
-
 
   const showHeaderMenu = (event: React.SyntheticEvent, close: boolean): void => {
     event.stopPropagation()
@@ -31,7 +31,8 @@ export const Header: React.FC = (): JSX.Element => {
   }
 
   useCloseModal(isOpen, setOpen, headerModal)
-  useCloseModal(availableLocation, setAvailableLocation, dropDown)
+  // useCloseModal(availableLocation, setAvailableLocation, dropDown)
+  useCloseModal(activeInput, setActiveInput, input)
 
   const closeHeader = (event: React.SyntheticEvent) => showHeaderMenu(event, true)
   const openHeader = (event: React.SyntheticEvent) => showHeaderMenu(event, false)
@@ -72,7 +73,7 @@ export const Header: React.FC = (): JSX.Element => {
   const getLocationDebounced = useDebounce(getLocation, 500)
 
   useEffect(() => {
-    inputValue.city.length &&  getLocationDebounced({q: inputValue.city})
+    inputValue.city.length && getLocationDebounced({q: inputValue.city})
   }, [inputValue.city])
   
   return (
@@ -88,7 +89,10 @@ export const Header: React.FC = (): JSX.Element => {
           </div>
           <div className={cn(style.content, {[style.content__open]: isOpen })}>
             <div className={style.title}>Choose City:</div>
-            <div className={style.form}>
+            <div className={style.form}
+              ref={input}
+              onFocus={() => setActiveInput(true)}
+            >
               <Input
                 label="Type City or Region"
                 name="city"
@@ -98,7 +102,7 @@ export const Header: React.FC = (): JSX.Element => {
                 value={inputValue}
                 onChange={handlerChange}
               />
-              {availableLocation.length > 0 && <div ref={dropDown} className={style.variation}>
+              {activeInput && availableLocation.length > 0 && <div ref={dropDown} className={style.variation}>
                 {availableLocation.map((city, index) => {
                   return <>
                     <div

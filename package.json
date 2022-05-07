@@ -12,18 +12,18 @@
 		"lint": "eslint -c .eslintrc --ext .js,.css",
 		"stylelint": "stylelint \"**/*.sass\"  --fix "
 	},
- "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+	"browserslist": {
+		"production": [
+			">1%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 3 chrome version",
+			"last 3 firefox version",
+			"last 3 safari version"
+		]
+	},
 	"dependencies": {
 		"@js-temporal/polyfill": "^0.4.1",
 		"axios": "^0.24.0",
@@ -38,7 +38,6 @@
 		"react": "17.0.2",
 		"react-chartjs-2": "^4.1.0",
 		"react-dom": "17.0.2",
-		"sass": "^1.51.0",
 		"stylelint-config-sass-guidelines": "^9.0.1",
 		"stylelint-scss": "^4.2.0",
 		"swiper": "^8.1.4",
@@ -54,6 +53,7 @@
 		"eslint": "^7.23.0",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"husky": "^6.0.0",
+		"sass": "^1.51.0",
 		"stylelint": "^14.7.1",
 		"stylelint-config-standard": "^25.0.0",
 		"stylelint-order": "^5.0.0",
